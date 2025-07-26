@@ -39,7 +39,9 @@
 - 🔔 Notifications for messages and project events  
 
 ### ⚡ Performance & UX  
-- ⚡ Redis caching and session handling  
+- ⚡ Redis caching and session handling
+- 🕜 Demo background jobs
+- 📄 Pagination with search for UX
 - 📇 Indexed MongoDB schemas for performance  
 - 🔄 Compression and pagination for speed  
 - 🎨 Responsive UI with **Framer Motion** animations  
