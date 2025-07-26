@@ -26,7 +26,8 @@
 
 ### 💬 Real-Time Chat  
 - 🗣️ Private & group chats powered by **Socket.IO**  
-- 👀 Seen/unseen message indicators  
+- 👀 Seen/unseen message indicators
+- 📍 Unread message count with real time updates 
 - ✏️ Edit & delete messages (real-time updates)  
 - 🔔 Live message notifications  
 
@@ -41,7 +42,7 @@
 ### ⚡ Performance & UX  
 - ⚡ Redis caching and session handling
 - 🕜 Demo background jobs
-- 📄 Pagination with search for UX
+- 🔍 Search based loading in backend 
 - 📇 Indexed MongoDB schemas for performance  
 - 🔄 Compression and pagination for speed  
 - 🎨 Responsive UI with **Framer Motion** animations  
