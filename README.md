@@ -57,15 +57,6 @@
 
 ---
 
-## 🏗 Architecture Diagram  
-
-```mermaid
-graph TD
-  UI[React + Tailwind + Framer Motion] --> API[Node.js + Express]
-  API --> DB[MongoDB (Data Storage)]
-  API --> RS[Redis (Caching & Sessions)]
-  API --> SO[Socket.IO (Real-Time Chat & Notifications)]
-  API --> ST[Stream API (Video Calling)]
 ---
 ## 📦 Getting Started (Local Setup)
 
@@ -113,4 +104,13 @@ npm run dev
 # demo credentials for accessing 
 - Email: hi@gmail.com
 - Password: 1234
-- 
+
+## 🏗 Architecture Diagram  
+
+```mermaid
+graph TD
+  UI[React + Tailwind + Framer Motion] --> API[Node.js + Express]
+  API --> DB[MongoDB (Data Storage)]
+  API --> RS[Redis (Caching & Sessions)]
+  API --> SO[Socket.IO (Real-Time Chat & Notifications)]
+  API --> ST[Stream API (Video Calling)]
