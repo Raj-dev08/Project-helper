@@ -8,6 +8,10 @@
 
 🌐 **Live Demo:** [project-helper-aqm2.onrender.com](https://project-helper-aqm2.onrender.com)  
 
+# demo credentials for accessing 
+- Email: hi@gmail.com
+- Password: 1234
+
 ---
 
 ## ✨ Key Features  
@@ -63,8 +67,8 @@
 ## 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Raj-dev08/Course-It.git
-cd Course-It
+git clone https://github.com/Raj-dev08/Project-helper
+cd Project-helper
 ```
 
 ## 2. Setup env variables 
@@ -79,10 +83,14 @@ cd Course-It
 
 - ARCJET_KEY= your_arcjet_key
 
+- API_KEY=your_api_key(optional)
+
 
 ### frontend/.env
 - VITE_STREAM_KEY=your_stream_key
 
+- VITE_API_KEY=your_api_key
+  
 ## 3. Run locally 
 
 ```
@@ -96,14 +104,6 @@ cd frontend
 npm install
 npm run dev
 ```
-## 🚀 Live Demo
-
-🌍 **Check it out here:**  
-🔗 [Click to Open Course-It on Render](https://course-it-2s22.onrender.com)
-
-# demo credentials for accessing 
-- Email: hi@gmail.com
-- Password: 1234
 
 ---
 
