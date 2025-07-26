@@ -66,9 +66,6 @@ graph TD
   API --> RS[Redis (Caching & Sessions)]
   API --> SO[Socket.IO (Real-Time Chat & Notifications)]
   API --> ST[Stream API (Video Calling)]
-
-```
-
 ---
 ## 📦 Getting Started (Local Setup)
 
