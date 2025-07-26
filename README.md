@@ -105,12 +105,13 @@ npm run dev
 - Email: hi@gmail.com
 - Password: 1234
 
-## 🏗 Architecture Diagram  
+---
 
+## 🏗 Architecture  
 ```mermaid
 graph TD
-  UI[React + Tailwind + Framer Motion] --> API[Node.js + Express]
-  API --> DB[MongoDB (Data Storage)]
-  API --> RS[Redis (Caching & Sessions)]
-  API --> SO[Socket.IO (Real-Time Chat & Notifications)]
-  API --> ST[Stream API (Video Calling)]
+A[Frontend: React + Tailwind + Framer Motion] --> B[Backend: Node.js + Express]
+B --> C[MongoDB: Data Storage]
+B --> D[Redis: Caching & Session]
+B --> E[Socket.IO: Real-Time Communication]
+B --> F[Stream API: Video Calling]
