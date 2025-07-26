@@ -8,8 +8,8 @@
 
 🌐 **Live Demo:** [project-helper-aqm2.onrender.com](https://project-helper-aqm2.onrender.com)  
 
-# demo credentials for accessing 
-- Email: hi@gmail.com
+🛗 **Demo credentials for accessing:**
+- Email: raj@gmail.com
 - Password: 1234
 
 ---
