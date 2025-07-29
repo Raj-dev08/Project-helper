@@ -8,7 +8,7 @@ import path from "path";
 
 import { connectDB } from "./lib/db.js";
 import arcjetMiddleware from "./middleware/arcjet.middleware.js";
-import { verifyApiKey } from "./middleware/verifyapi.middleware.js";
+import { verifyApiKey } from "./middleware/verifyAPI.middleware.js";
 import { errorHandler } from "./middleware/error.middleware.js";
 
 import authRoutes from "./routes/auth.route.js";
@@ -45,7 +45,7 @@ app.use(compression({
   }
 }));
 
-app.use(verifyApiKey); // Use API key verification middleware
+//app.use(verifyApiKey); // Use API key verification middleware
 app.use(arcjetMiddleware);
 
 app.use("/api/auth", authRoutes);
