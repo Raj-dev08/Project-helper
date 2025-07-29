@@ -67,7 +67,13 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(errorHandler);
 
-server.listen(PORT, () => {
+// console.log(process.env.NODE_ENV)
+
+if (process.env.NODE_ENV !== "test") {
+  server.listen(PORT, () => {
   console.log("server is running on PORT:" + PORT);
   connectDB();
 });
+}
+
+export default app

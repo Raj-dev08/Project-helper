@@ -348,7 +348,7 @@ export const updateProject = async (req, res,next) => {
             return res.status(400).json({ message: "Atleast one field is required" });
         }
 
-        if (! /^https:\/\/(www\.)?github\.com\/[A-Za-z0-9_.-]+(\/[A-Za-z0-9_.-]+)?\/?$/.test(githubLink)) {
+        if ( githubLink && ! /^https:\/\/(www\.)?github\.com\/[A-Za-z0-9_.-]+(\/[A-Za-z0-9_.-]+)?\/?$/.test(githubLink)) {
             return res.status(400).json({ message: "Invalid GitHub link" });
         }
 
