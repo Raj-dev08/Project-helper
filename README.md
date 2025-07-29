@@ -46,6 +46,7 @@
 - 📇 Indexed MongoDB schemas for performance  
 - 🔄 Compression and pagination for speed  
 - 🎨 Responsive UI with **Framer Motion** animations  
+- 🧪 End to end tested with **JEST** and **supertest** 
 
 ---
 
@@ -61,7 +62,7 @@
 | **Caching**     | Redis                                            |
 | **Auth**        | JWT + Secure Cookies                             |
 | **Hosting**     | Render                                           |
-
+| **Testing**     | Jest, SuperTest                                  |
 ---
 
 ---
