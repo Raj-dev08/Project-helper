@@ -15,7 +15,7 @@ import { protectRoute } from '../middleware/auth.middleware.js';
 const router = express.Router();
 
 router.get('/friends', protectRoute, getAllFriends);
-router.get('/search',protectRoute,searchProfile)
+router.get('/search',protectRoute,searchProfile);
 router.get('/friend-requests/to-me', protectRoute, getAllFriendRequestsToMe);
 router.get('/friend-requests/from-me', protectRoute, getAllFriendRequestsFromMe);
 router.post('/send-request/:id', protectRoute, sendFriendRequest);

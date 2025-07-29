@@ -151,7 +151,8 @@ export const getMessages = async (req, res,next) => {
 
         await redis.set(cacheKey, JSON.stringify(messagePayLoad), "EX", 60 * 60); // Cache for 1 hour
 
-        await redis.set(cacheJoinInfo, "true");
+        await redis.set(cacheJoinInfo, "true","EX",30*24*60*60);//caching for 30 days after that time if the updatemany tries it wont find any if user saw it
+        //can leave permanent
 
         res.status(200).json({ messages, hasMore });
     } catch (error) {
