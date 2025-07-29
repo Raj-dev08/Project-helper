@@ -41,12 +41,12 @@
 
 ### ⚡ Performance & UX  
 - ⚡ Redis caching and session handling
-- 🕜 Demo background jobs
+- 🕜 Demo background jobs with bullmq and redis pub,sub
 - 🔍 Search based loading in backend 
 - 📇 Indexed MongoDB schemas for performance  
 - 🔄 Compression and pagination for speed  
 - 🎨 Responsive UI with **Framer Motion** animations  
-- 🧪 End to end tested with **JEST** and **supertest** 
+- 🧪 End to end tested with **JEST** and **Supertest** 
 
 ---
 
@@ -63,6 +63,7 @@
 | **Auth**        | JWT + Secure Cookies                             |
 | **Hosting**     | Render                                           |
 | **Testing**     | Jest, SuperTest                                  |
+| **Background-Jobs**   | BullMq,redis pub/sub                       |
 ---
 
 ---
