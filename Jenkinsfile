@@ -47,17 +47,23 @@ pipeline {
             dir('frontend') {
                 echo 'Creating .env file for Frontend...'
                 writeFile file: '.env', text: """
-                    VITE_STREAM_API_KEY=${env.STREAM_API_KEY}
+                    VITE_STREAM_API_KEY=${env.STEAM_API_KEY}
                     VITE_API_KEY=${env.API_KEY}
                 """
             }
+            }
+        }
+        stage('install backend'){
+            steps{
+                dir('backend'){
+                    bat 'npm install'
+                }
             }
         }
         stage('Test'){
             steps {
                dir('backend'){
                 echo 'testing backend'
-                bat 'npm install'
                 bat 'set NODE_ENV=test && npm test'
                }
             }
