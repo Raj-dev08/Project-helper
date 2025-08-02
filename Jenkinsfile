@@ -68,7 +68,7 @@ pipeline {
             steps {
                 dir('backend') {
                     echo 'Running backend tests...'
-                    bat 'npx jest --runInBand'
+                    bat 'set NODE_ENV=test && npm test'
                 }
             }
         }
