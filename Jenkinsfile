@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    options{
+        cleanWs()
+    }
+
     environment {
         MONGODB_URI="mongodb://admin:password@mongo:27017/project-helper?authSource=admin"
         PORT=5000
@@ -69,7 +73,7 @@ VITE_API_KEY=${env.API_KEY}
                 dir('backend') {
                     bat '''
                         set NODE_ENV=test
-                        npm test -- --runInBand
+                        npm test
                     '''
                 }
             }
