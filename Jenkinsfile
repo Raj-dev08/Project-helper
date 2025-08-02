@@ -64,7 +64,7 @@ pipeline {
             steps {
                dir('backend'){
                 echo 'testing backend'
-                bat 'set NODE_ENV=test && npm test'
+                bat 'npx cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest'
                }
             }
         }
