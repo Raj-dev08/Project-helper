@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    options{
-        cleanWs()
-    }
-
     environment {
         MONGODB_URI="mongodb://admin:password@mongo:27017/project-helper?authSource=admin"
         PORT=5000
@@ -28,6 +24,13 @@ pipeline {
                 cleanWs()
             }
         }
+        stage('Checkout Code') {
+            steps {
+                echo 'Checking out source code...'
+                checkout scm
+            }
+        }
+
 
         stage('Setup Environment Files') {
             steps {
