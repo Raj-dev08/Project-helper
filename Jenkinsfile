@@ -70,7 +70,7 @@ pipeline {
             steps {
                dir('backend'){
                 echo 'testing backend'
-                bat 'set NODE_ENV=development && npm test'
+                bat 'set NODE_ENV=test && npm test'
                }
             }
         }
