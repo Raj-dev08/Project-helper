@@ -66,6 +66,14 @@ pipeline {
                bat 'set NODE_ENV=development && npm run build'
             }
         }
+        stage('Test'){
+            steps {
+               dir('backend'){
+                echo 'testing backend'
+                bat 'set NODE_ENV=development && npm test'
+               }
+            }
+        }
         stage('Run'){
             steps {
                 dir('backend') {
