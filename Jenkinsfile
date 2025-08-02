@@ -53,19 +53,23 @@ pipeline {
             }
             }
         }
-        stage('install backend'){
-            steps{
-                dir('backend'){
-                    bat 'set NODE_ENV=development && npm install'
+        stage('Install backend dependencies') {
+            steps {
+                dir('backend') {
+                    bat '''
+                        rmdir /s /q node_modules || exit 0
+                        npm install --include=dev
+                    '''
                 }
             }
         }
-        stage('Test'){
+
+        stage('Run Tests') {
             steps {
-               dir('backend'){
-                echo 'testing backend'
-                bat 'npx cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest'
-               }
+                dir('backend') {
+                    echo 'Running backend tests...'
+                    bat 'npx jest --runInBand'
+                }
             }
         }
         stage('Build and Install') {
