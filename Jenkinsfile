@@ -7,7 +7,7 @@ pipeline {
         JWT_SECRET="3b4ab1987b62199a05274250638646f243be808c9d0e1df668d69b0a2e98fc33"
         NODE_ENV="production"
         CLOUDINARY_CLOUD_NAME="dnvmiiboh"
-        CLOUDINARY_API_KEY=877159668992191
+        CLOUDINARY_API_KEY="877159668992191"
         CLOUDINARY_API_SECRET="dN-tjFvgb7blUiaO26-OTELmwXo"
         UPSTASH_REDIS_URL="redis://redis:6379"
         ADMIN_PASSWORD="hailhitler123"
@@ -18,10 +18,10 @@ pipeline {
     }
 
     stages {
-        stage('Clean Workspace') {
+        stage('Checkout') {
             steps {
-                echo 'Cleaning Jenkins Workspace...'
-                cleanWs()
+                echo 'Checking out code...'
+                checkout scm
             }
         }
 
@@ -30,26 +30,26 @@ pipeline {
                 dir('backend') {
                     echo 'Creating backend .env file...'
                     writeFile file: '.env', text: """
-                        MONGODB_URI=${env.MONGODB_URI}
-                        PORT=${env.PORT}
-                        JWT_SECRET=${env.JWT_SECRET}
-                        NODE_ENV=${env.NODE_ENV}
-                        CLOUDINARY_CLOUD_NAME=${env.CLOUDINARY_CLOUD_NAME}
-                        CLOUDINARY_API_KEY=${env.CLOUDINARY_API_KEY}
-                        CLOUDINARY_API_SECRET=${env.CLOUDINARY_API_SECRET}
-                        UPSTASH_REDIS_URL=${env.UPSTASH_REDIS_URL}
-                        ADMIN_PASSWORD=${env.ADMIN_PASSWORD}
-                        ARCJET_KEY=${env.ARCJET_KEY}
-                        STEAM_API_KEY=${env.STEAM_API_KEY}
-                        STEAM_API_SECRET=${env.STEAM_API_SECRET}
-                    """
+MONGODB_URI=${env.MONGODB_URI}
+PORT=${env.PORT}
+JWT_SECRET=${env.JWT_SECRET}
+NODE_ENV=${env.NODE_ENV}
+CLOUDINARY_CLOUD_NAME=${env.CLOUDINARY_CLOUD_NAME}
+CLOUDINARY_API_KEY=${env.CLOUDINARY_API_KEY}
+CLOUDINARY_API_SECRET=${env.CLOUDINARY_API_SECRET}
+UPSTASH_REDIS_URL=${env.UPSTASH_REDIS_URL}
+ADMIN_PASSWORD=${env.ADMIN_PASSWORD}
+ARCJET_KEY=${env.ARCJET_KEY}
+STEAM_API_KEY=${env.STEAM_API_KEY}
+STEAM_API_SECRET=${env.STEAM_API_SECRET}
+"""
                 }
                 dir('frontend') {
                     echo 'Creating frontend .env file...'
                     writeFile file: '.env', text: """
-                        VITE_STREAM_API_KEY=${env.STEAM_API_KEY}
-                        VITE_API_KEY=${env.API_KEY}
-                    """
+VITE_STREAM_API_KEY=${env.STEAM_API_KEY}
+VITE_API_KEY=${env.API_KEY}
+"""
                 }
             }
         }
@@ -60,7 +60,7 @@ pipeline {
                     echo 'Installing backend dependencies...'
                     bat '''
                         if exist node_modules rmdir /s /q node_modules
-                        npm ci
+                        npm install --include=dev
                     '''
                 }
             }
@@ -78,14 +78,26 @@ pipeline {
             }
         }
 
-        stage('Build Application') {
+        stage('Build Frontend') {
             steps {
-                echo 'Building the application...'
-                bat '''
-                    npm run clean || exit 0
-                    set NODE_ENV=development
-                    npm run build
-                '''
+                dir('frontend') {
+                    echo 'Building frontend...'
+                    bat '''
+                        npm install
+                        npm run build
+                    '''
+                }
+            }
+        }
+
+        stage('Build Backend') {
+            steps {
+                dir('backend') {
+                    echo 'Building backend...'
+                    bat '''
+                        npm run build
+                    '''
+                }
             }
         }
 
@@ -94,8 +106,8 @@ pipeline {
                 dir('backend') {
                     echo 'Starting backend server with Docker...'
                     bat '''
-                        set NODE_ENV=production
-                        docker compose up -d
+                        docker-compose down || exit 0
+                        docker-compose up -d --build
                     '''
                 }
             }
@@ -103,11 +115,15 @@ pipeline {
     }
 
     post {
+        always {
+            echo 'Cleaning workspace after build...'
+            cleanWs()
+        }
         failure {
-            echo 'Build or Tests Failed!'
+            echo '❌ Build or Tests Failed!'
         }
         success {
-            echo 'Pipeline completed successfully!'
+            echo '✅ Pipeline completed successfully!'
         }
     }
 }
