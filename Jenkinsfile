@@ -7,7 +7,7 @@ pipeline {
         PORT=5000
 
         JWT_SECRET="3b4ab1987b62199a05274250638646f243be808c9d0e1df668d69b0a2e98fc33"
-        NODE_ENV="development"
+        NODE_ENV="production"
 
 
         CLOUDINARY_CLOUD_NAME="dnvmiiboh"
@@ -25,12 +25,6 @@ pipeline {
         API_KEY="UM3AOh4LBkoUmqO5zHory0WjO9L8tP1m"
     }
     stages {
-        stage('Hello') {
-            steps {
-                echo 'Hello from Jenkins Pipeline!'
-                echo 'how are you fellas ?'
-            }
-        }
         stage('env'){
             steps{
                 dir('backend') {
@@ -59,26 +53,27 @@ pipeline {
             }
             }
         }
-        stage('Build and Install') {
-            steps {
-               echo 'Building from root'
-               bat 'npm run clean'
-               bat 'set NODE_ENV=development && npm run build'
-            }
-        }
         stage('Test'){
             steps {
                dir('backend'){
                 echo 'testing backend'
+                bat 'npm install'
                 bat 'set NODE_ENV=test && npm test'
                }
+            }
+        }
+        stage('Build and Install') {
+            steps {
+               echo 'Building from root'
+               bat 'npm run clean || exit 0'
+               bat 'set NODE_ENV=development && npm run build'
             }
         }
         stage('Run'){
             steps {
                 dir('backend') {
                     echo 'Starting backend server...'
-                    bat 'docker compose up -d'
+                    bat 'set NODE_ENV=production && docker compose up -d'
                 }
             }
         }
