@@ -18,17 +18,16 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
+        stage('Clean Workspace') {
             steps {
-                echo 'Checking out code...'
-                checkout scm
+                echo 'Cleaning Jenkins workspace...'
+                cleanWs()
             }
         }
 
         stage('Setup Environment Files') {
             steps {
                 dir('backend') {
-                    echo 'Creating backend .env file...'
                     writeFile file: '.env', text: """
 MONGODB_URI=${env.MONGODB_URI}
 PORT=${env.PORT}
@@ -45,7 +44,6 @@ STEAM_API_SECRET=${env.STEAM_API_SECRET}
 """
                 }
                 dir('frontend') {
-                    echo 'Creating frontend .env file...'
                     writeFile file: '.env', text: """
 VITE_STREAM_API_KEY=${env.STEAM_API_KEY}
 VITE_API_KEY=${env.API_KEY}
@@ -54,10 +52,10 @@ VITE_API_KEY=${env.API_KEY}
             }
         }
 
-        stage('Install Backend Dependencies') {
+        stage('Install Backend for Testing') {
             steps {
                 dir('backend') {
-                    echo 'Installing backend dependencies...'
+                    echo 'Installing backend with dev dependencies for testing...'
                     bat '''
                         if exist node_modules rmdir /s /q node_modules
                         npm install --include=dev
@@ -66,10 +64,9 @@ VITE_API_KEY=${env.API_KEY}
             }
         }
 
-        stage('Run Tests') {
+        stage('Run Backend Tests') {
             steps {
                 dir('backend') {
-                    echo 'Running backend tests...'
                     bat '''
                         set NODE_ENV=test
                         npm test -- --runInBand
@@ -78,36 +75,20 @@ VITE_API_KEY=${env.API_KEY}
             }
         }
 
-        stage('Build Frontend') {
+        stage('Build Application') {
             steps {
-                dir('frontend') {
-                    echo 'Building frontend...'
-                    bat '''
-                        npm install
-                        npm run build
-                    '''
-                }
-            }
-        }
-
-        stage('Build Backend') {
-            steps {
-                dir('backend') {
-                    echo 'Building backend...'
-                    bat '''
-                        npm run build
-                    '''
-                }
+                echo 'Building full application (frontend + backend for production)...'
+                bat 'npm run build'
             }
         }
 
         stage('Run Application') {
             steps {
                 dir('backend') {
-                    echo 'Starting backend server with Docker...'
                     bat '''
-                        docker-compose down || exit 0
-                        docker-compose up -d --build
+                        set NODE_ENV=production
+                        docker compose down || exit 0
+                        docker compose up -d --build
                     '''
                 }
             }
@@ -115,15 +96,11 @@ VITE_API_KEY=${env.API_KEY}
     }
 
     post {
-        always {
-            echo 'Cleaning workspace after build...'
-            cleanWs()
-        }
-        failure {
-            echo '❌ Build or Tests Failed!'
-        }
         success {
             echo '✅ Pipeline completed successfully!'
+        }
+        failure {
+            echo '❌ Pipeline failed.'
         }
     }
 }
