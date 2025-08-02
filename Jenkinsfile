@@ -56,7 +56,7 @@ pipeline {
         stage('install backend'){
             steps{
                 dir('backend'){
-                    bat 'npm install'
+                    bat 'set NODE_ENV=development && npm install'
                 }
             }
         }
