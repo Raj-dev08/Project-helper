@@ -58,6 +58,15 @@ VITE_API_KEY=${env.API_KEY}
                 }
             }
         }
+        stage('Install Visual C++ Redistributable') {
+            steps {
+                bat '''
+                    powershell -Command "Invoke-WebRequest -Uri 'https://aka.ms/vs/17/release/vc_redist.x64.exe' -OutFile vc_redist.x64.exe"
+                    vc_redist.x64.exe /install /quiet /norestart
+                '''
+            }
+        }
+
 
         stage('Install Backend for Testing') {
             steps {
