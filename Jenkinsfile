@@ -93,8 +93,10 @@ VITE_API_KEY=${env.API_KEY}
 
         stage('Build Application') {
             steps {
-                echo 'Building full application (frontend + backend for production)...'
-                bat 'npm run build'
+                dir('frontend'){
+                    echo 'Building full application (frontend + backend for production)...'
+                    bat 'npm run build'
+                }
             }
         }
 
