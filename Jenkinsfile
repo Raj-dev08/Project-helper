@@ -68,13 +68,20 @@ VITE_API_KEY=${env.API_KEY}
         }
 
 
-        stage('Install Backend for Testing') {
+        stage('Install Backend for Testing and frontend for build') {
             steps {
                 dir('backend') {
                     echo 'Installing backend with dev dependencies for testing...'
                     bat '''
                         if exist node_modules rmdir /s /q node_modules
                         npm install --include=dev
+                    '''
+                }
+                dir('frontend'){
+                    echo 'Installing frontend'
+                     bat '''
+                        if exist node_modules rmdir /s /q node_modules
+                        npm install
                     '''
                 }
             }
