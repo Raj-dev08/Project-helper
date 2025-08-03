@@ -77,14 +77,14 @@ VITE_API_KEY=${env.API_KEY}
                         npm install --include=dev
                     '''
                 }
-                dir('frontend'){
-                    echo 'Installing frontend'
-                     bat '''
-                        if exist node_modules rmdir /s /q node_modules
-                        npm install
-                        npm install --save-dev @vitejs/plugin-react
-                    '''
-                }
+                // dir('frontend'){
+                //     echo 'Installing frontend'
+                //      bat '''
+                //         if exist node_modules rmdir /s /q node_modules
+                //         npm install
+                //         npm install --save-dev @vitejs/plugin-react
+                //     '''
+                // }
             }
         }
 
@@ -101,10 +101,9 @@ VITE_API_KEY=${env.API_KEY}
 
         stage('Build Application') {
             steps {
-                dir('frontend'){
-                    echo 'Building full application (frontend + backend for production)...'
-                    bat 'npm run build'
-                }
+                echo 'Buildind from root'
+                bat 'npm run clean'
+                bat 'set NODE_ENV=development && npm run build'
             }
         }
 
