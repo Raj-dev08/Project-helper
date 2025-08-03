@@ -82,6 +82,7 @@ VITE_API_KEY=${env.API_KEY}
                      bat '''
                         if exist node_modules rmdir /s /q node_modules
                         npm install
+                        npm install --save-dev @vitejs/plugin-react
                     '''
                 }
             }
