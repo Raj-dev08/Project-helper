@@ -45,8 +45,8 @@ app.use(compression({
   }
 }));
 
-app.use(verifyApiKey); // Use API key verification middleware
-// app.use(arcjetMiddleware);
+// app.use(verifyApiKey); // Use API key verification middleware
+app.use(arcjetMiddleware);
 
 app.use("/api/auth", authRoutes);
 app.use("/api/projects", projectRoutes);
