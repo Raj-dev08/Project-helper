@@ -10,7 +10,8 @@ const config = {
     coverageDirectory: "coverage",
     coverageProvider: "v8",
     testEnvironment: "node",
-    transform: {},
+    testRunner: "jest-circus/runner",
+    transform: {}
 };
 
 export default config;

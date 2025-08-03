@@ -2,29 +2,59 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 import supertest from "supertest";
 import jwt from "jsonwebtoken";
-import app from "../src/server.js"; // Your Express app
-import User from "../src/models/user.model.js";
 import { describe, expect, jest } from "@jest/globals";
 
+// ✅ Set longer timeout for all tests
+jest.setTimeout(20000);
+
 // ✅ Mock Cloudinary
-jest.unstable_mockModule("../src/lib/cloudinary.js", () => ({
-  default: { uploader: { upload: jest.fn() } },
+jest.mock("../src/lib/cloudinary.js", () => ({
+  default: {
+    uploader: {
+      upload: jest.fn().mockResolvedValue({ secure_url: "http://img.com/test.jpg" }),
+    },
+  },
 }));
 
-// ✅ Mock Redis (if used in the controller)
+
+// ✅ Mock Redis
 jest.unstable_mockModule("../src/lib/redis.js", () => ({
   redis: {
     get: jest.fn(),
     set: jest.fn(),
     del: jest.fn(),
+    publish: jest.fn(),
+    duplicate: jest.fn().mockReturnThis(),
+    quit: jest.fn().mockResolvedValue(true),
+    on: jest.fn(),
   },
 }));
 
-const cloudinary = (await import("../src/lib/cloudinary.js")).default;
-const { redis } = await import("../src/lib/redis.js");
+// ✅ Mock BullMQ
+jest.unstable_mockModule("bullmq", () => ({
+  Queue: jest.fn().mockImplementation(() => ({
+    add: jest.fn().mockResolvedValue({ id: "mock-job-id" }),
+    close: jest.fn().mockResolvedValue(true),
+  })),
+  Worker: jest.fn().mockImplementation(() => ({
+    on: jest.fn(),
+  })),
+}));
 
-// ✅ Mock cloudinary & redis behaviors
-cloudinary.uploader.upload.mockResolvedValue({ secure_url: "http://img.com/test.jpg" });
+// ✅ Mock Call Queue
+jest.unstable_mockModule("../src/lib/callqueues.js", () => ({
+  videocallQueue: {
+    add: jest.fn().mockResolvedValue({ id: "mock-job-id" }),
+    close: jest.fn().mockResolvedValue(true),
+  },
+}));
+
+// ✅ Import after mocks
+const app = (await import("../src/server.js")).default;
+const { redis } = await import("../src/lib/redis.js");
+import User from "../src/models/user.model.js";
+
+
 redis.get.mockResolvedValue(null);
 redis.set.mockResolvedValue(true);
 redis.del.mockResolvedValue(true);
@@ -279,6 +309,7 @@ describe("Tasks flow", () => {
               "//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="
        });
 
+    console.log(res.body)
 
     expect(res.status).toBe(200);
     expect(res.body.message).toBe("task submitted succesfully");

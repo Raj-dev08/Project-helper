@@ -3,7 +3,7 @@ import http from "http";
 import express from "express";
 import GroupChat from "../models/groupchat.model.js";
 import Message from "../models/message.model.js";
-import { redisSubscriber } from "./redis.js";
+// import { redisSubscriber } from "./redis.js";
 
 const app = express();
 const server = http.createServer(app);
