@@ -2,19 +2,8 @@ pipeline {
     agent any
 
     environment {
-        MONGODB_URI="mongodb://admin:password@mongo:27017/project-helper?authSource=admin"
-        PORT=5000
-        JWT_SECRET="3b4ab1987b62199a05274250638646f243be808c9d0e1df668d69b0a2e98fc33"
-        CLOUDINARY_CLOUD_NAME="dnvmiiboh"
-        CLOUDINARY_API_KEY="877159668992191"
-        CLOUDINARY_API_SECRET="dN-tjFvgb7blUiaO26-OTELmwXo"
-        UPSTASH_REDIS_URL="redis://redis:6379"
-        ADMIN_PASSWORD="hailhitler123"
-        ARCJET_KEY="ajkey_01jv6xz7xcfykvqvadsctbbwpq"
-        STEAM_API_KEY="4fbycczcyynb"
-        STEAM_API_SECRET="8gxz9yejcfqu5gwdgdrhnsbhjnrzy6mtgszmxkhfrb4r643bd4pm9qb9ckf9upq3"
-        API_KEY="UM3AOh4LBkoUmqO5zHory0WjO9L8tP1m"
-        VITE_API_KEY="UM3AOh4LBkoUmqO5zHory0WjO9L8tP1m"
+       //add your env 
+       //better option add them in jenkins
     }
 
     stages {
