@@ -108,11 +108,12 @@ VITE_API_KEY=${env.VITE_API_KEY}
                 }
             }
         }
-        stage('Build Frontend'){
-            environment{
-                NODE_ENV="development"
-            }steps{
-                dir('frontend'){
+        stage('Build Frontend') {
+            environment {
+                NODE_ENV = "development"
+            }
+            steps {
+                dir('frontend') {
                     bat '''
                         npm run build || exit /b %errorlevel%
                         dir /s /b dist || echo "DIST folder missing!"
@@ -120,6 +121,7 @@ VITE_API_KEY=${env.VITE_API_KEY}
                 }
             }
         }
+
         stage('Check Frontend Structure') {
             steps {
                 dir('frontend') {
