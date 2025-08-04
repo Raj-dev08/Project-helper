@@ -2,8 +2,20 @@ pipeline {
     agent any
 
     environment {
-       //add your env 
-       //better option add them in jenkins
+        ADMIN_PASSWORD = credentials('ADMIN_PASSWORD')
+        API_KEY = credentials('API_KEY')
+        ARCJET_KEY = credentials('ARCJET_KEY')
+        CLOUDINARY_API_KEY = credentials('CLOUDINARY_API_KEY')
+        CLOUDINARY_API_SECRET = credentials('CLOUDINARY_API_SECRET')
+        CLOUDINARY_CLOUD_NAME = credentials('CLOUDINARY_CLOUD_NAME')
+        JWT_SECRET = credentials('JWT_SECRET')
+        MONGODB_URI = credentials('MONGODB_URI')
+        PORT = '5000'
+        STEAM_API_KEY = credentials('STEAM_API_KEY')
+        STEAM_API_SECRET = credentials('STEAM_API_SECRET')
+        UPSTASH_REDIS_URL = credentials('UPSTASH_REDIS_URL')
+        VITE_API_KEY = credentials('VITE_API_KEY')
+        VITE_STREAM_API_KEY = credentials('VITE_STREAM_API_KEY')
     }
 
     stages {
