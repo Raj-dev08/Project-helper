@@ -23,11 +23,13 @@
 ### 📁 Project Management  
 - ➕ Create, join & manage projects  
 - ✅ Task & issue tracking  
+- 🆘 Fix issues and do tasks to increase contribution  
+- 📊 Contribution chart
 
 ### 💬 Real-Time Chat  
 - 🗣️ Private & group chats powered by **Socket.IO**  
-- 👀 Seen/unseen message indicators
-- 📍 Unread message count with real time updates 
+- 👀 Seen/unseen message indicators  
+- 📍 Unread message count with real-time updates  
 - ✏️ Edit & delete messages (real-time updates)  
 - 🔔 Live message notifications  
 
@@ -40,13 +42,42 @@
 - 🔔 Notifications for messages and project events  
 
 ### ⚡ Performance & UX  
-- ⚡ Redis caching and session handling
-- 🕜 Demo background jobs with **Bullmq** and **Redis pub/sub**
-- 🔍 Search based loading in backend 
+- ⚡ Redis caching and session handling  
+- 🕜 Demo background jobs with **BullMQ** and **Redis pub/sub**  
+- 🔍 Search based loading in backend  
 - 📇 Indexed MongoDB schemas for performance  
 - 🔄 Compression and pagination for speed  
 - 🎨 Responsive UI with **Framer Motion** animations  
-- 🧪 End to end tested with **JEST** and **Supertest** 
+- 🧪 End-to-end tested with **Jest** and **Supertest**  
+
+### 👨‍💻 DevOps  
+- 🐳 **Dockerized Full Stack**  
+  - Backend, Frontend, MongoDB, and Redis in isolated containers  
+  - Volume mounts for persistent data  
+- ⚙️ **Jenkins CI/CD Pipeline**  
+  - Automated **build → test → deploy**  
+  - Multi-stage pipeline:  
+    1. Install & test backend  
+    2. Build frontend  
+    3. Move frontend build into backend  
+    4. Build & deploy with **Docker Compose**  
+- 🔐 **Environment Management**  
+  - Injects `.env` variables securely during the pipeline  
+- 🖥 **Runs on Windows Jenkins Agent**  
+  - Installs dependencies like Visual C++ Redistributable automatically  
+- 🚀 **Ready for Scaling**  
+  - Works in containerized environments with Docker Compose  
+  - Easily extended to Kubernetes  
+
+#### CI/CD Workflow Visualization  
+```mermaid
+graph TD
+  A[Jenkins Trigger] --> B[Checkout Code]
+  B --> C[Install & Test Backend]
+  C --> D[Build Frontend]
+  D --> E[Copy Frontend Build → Backend/public]
+  E --> F[Build & Deploy with Docker Compose]
+  F --> G[App Running in Containers]
 
 ---
 

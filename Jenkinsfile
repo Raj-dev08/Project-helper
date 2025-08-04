@@ -122,21 +122,23 @@ VITE_API_KEY=${env.VITE_API_KEY}
             }
         }
 
-        stage('Check Frontend Structure') {
-            steps {
-                dir('frontend') {
-                    bat 'dir /s /b'
-                }
-            }
-        }
+        //optional checking and adding
+
+        // stage('Check Frontend Structure') {
+        //     steps {
+        //         dir('frontend') {
+        //             bat 'dir /s /b'
+        //         }
+        //     }
+        // }
 
 
-        stage('Move Frontend Build') {
-            steps {
-                bat 'if not exist backend\\public mkdir backend\\public'
-                bat 'xcopy frontend\\dist backend\\public /E /I /Y'
-            }
-        }
+        // stage('Move Frontend Build') {
+        //     steps {
+        //         bat 'if not exist backend\\public mkdir backend\\public'
+        //         bat 'xcopy frontend\\dist backend\\public /E /I /Y'
+        //     }
+        // }
 
         stage('Run Application') {
              environment{
