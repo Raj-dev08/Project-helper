@@ -94,15 +94,26 @@ VITE_API_KEY=${env.VITE_API_KEY}
                 }
             }
         }
-        stage('Build Frontend') {
+        stage('Install Frontend') {
              environment{
                 NODE_ENV="development"
             }
             steps {
                 dir('frontend') {
-                       bat '''
+                    bat '''
                         if exist node_modules rmdir /s /q node_modules
                         npm install --include=dev
+                       
+                    '''
+                }
+            }
+        }
+        stage('Build Frontend'){
+            environment{
+                NODE_ENV="development"
+            }steps{
+                dir('frontend'){
+                    bat '''
                         npm run build || exit /b %errorlevel%
                         dir /s /b dist || echo "DIST folder missing!"
                     '''
@@ -110,12 +121,12 @@ VITE_API_KEY=${env.VITE_API_KEY}
             }
         }
         stage('Check Frontend Structure') {
-        steps {
-            dir('frontend') {
-                bat 'dir /s /b'
+            steps {
+                dir('frontend') {
+                    bat 'dir /s /b'
+                }
             }
         }
-    }
 
 
         stage('Move Frontend Build') {
