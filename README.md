@@ -78,7 +78,7 @@ graph TD
   D --> E[Copy Frontend Build → Backend/public]
   E --> F[Build & Deploy with Docker Compose]
   F --> G[App Running in Containers]
-
+```
 ---
 
 ## 🛠 Tech Stack  
@@ -151,3 +151,4 @@ B --> C[MongoDB: Data Storage]
 B --> D[Redis: Caching & Session]
 B --> E[Socket.IO: Real-Time Communication]
 B --> F[Stream API: Video Calling]
+```
