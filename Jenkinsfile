@@ -103,7 +103,8 @@ VITE_API_KEY=${env.VITE_API_KEY}
                        bat '''
                         if exist node_modules rmdir /s /q node_modules
                         npm install --include=dev
-                        npm run build
+                        npm run build || exit /b %errorlevel%
+                        dir /s /b dist || echo "DIST folder missing!"
                     '''
                 }
             }
