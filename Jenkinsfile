@@ -108,6 +108,14 @@ VITE_API_KEY=${env.VITE_API_KEY}
                 }
             }
         }
+        stage('Check Frontend Structure') {
+        steps {
+            dir('frontend') {
+                bat 'dir /s /b'
+            }
+        }
+    }
+
 
         stage('Move Frontend Build') {
             steps {
