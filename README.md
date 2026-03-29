@@ -69,6 +69,14 @@
   - Works in containerized environments with Docker Compose  
   - Easily extended to Kubernetes  
 
+### 📊 Monitoring  
+- 📈 **Prometheus Integration**  
+  - Exposes backend metrics via `/metrics` endpoint using `prom-client`  
+  - Collects default Node.js process metrics (CPU usage, memory, event loop, etc.)  
+
+- 📉 **Grafana Dashboard**  
+  - Connected to Prometheus for visualizing backend metrics  
+
 #### CI/CD Workflow Visualization  
 ```mermaid
 graph TD

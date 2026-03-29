@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import compression from 'compression';
-
+import client from "prom-client"
 import path from "path";
 
 import { connectDB } from "./lib/db.js";
@@ -26,6 +26,10 @@ dotenv.config();
 const PORT = process.env.PORT;
 const __dirname = path.resolve();
 
+
+const collectDefaultMetrics = client.collectDefaultMetrics;
+
+collectDefaultMetrics({ register: client.register });
 
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
@@ -54,6 +58,26 @@ app.use("/api/friends", friendRoutes);
 app.use("/api/groupchat", groupChatRoutes);
 app.use("/api/videocall", videoRoutes);
 app.use("/api/message", messageRoutes);
+
+
+app.get("/test", async (req, res) => {
+  try {
+    return res.status(200).json({ message: "API is working fine!" });
+  } catch (err) {
+    res.status(500).end(err);
+  }
+});
+
+app.get("/metrics", async (req, res) => {
+  try {
+    res.setHeader("Content-Type", client.register.contentType);
+    const metrics = await client.register.metrics();
+    res.send(metrics);
+  } catch (err) {
+    res.status(500).end(err);
+  }
+});
+
 
 
 

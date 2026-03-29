@@ -27,6 +27,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.13.2",
     "project-helper": "file:..",
+    "prom-client": "^15.1.3",
     "socket.io": "^4.8.1",
     "stream-chat": "^8.60.0"
   },
