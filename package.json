@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
+    "build": "npm ci --prefix backend && npm ci --prefix frontend && npm run build --prefix frontend",
     "start": "npm run start --prefix backend",
     "clean": "IF EXIST frontend\\node_modules rd /s /q frontend\\node_modules && IF EXIST backend\\node_modules rd /s /q backend\\node_modules && IF EXIST frontend\\package-lock.json del frontend\\package-lock.json && IF EXIST backend\\package-lock.json del backend\\package-lock.json"
   },
