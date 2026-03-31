@@ -50,7 +50,7 @@ app.use(compression({
 }));
 
 // app.use(verifyApiKey); // Use API key verification middleware
-app.use(arcjetMiddleware);
+// app.use(arcjetMiddleware);
 
 app.use("/api/auth", authRoutes);
 app.use("/api/projects", projectRoutes);
@@ -78,6 +78,10 @@ app.get("/metrics", async (req, res) => {
   }
 });
 
+app.get("/health", (req, res) => {
+  res.status(200).send("OK");
+});
+
 app.head("/health", (req, res) => {
   res.sendStatus(200);
 });
@@ -90,7 +94,7 @@ if (process.env.NODE_ENV === "production") {
 
   app.use(express.static(frontendPath));
 
-  app.get("*", (req, res) => {
+  app.get(/^\/(?!health|metrics|api).*/, (req, res) => {
     res.sendFile(path.join(frontendPath, "index.html"));
   });
 }
