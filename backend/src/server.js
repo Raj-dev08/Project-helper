@@ -78,6 +78,10 @@ app.get("/metrics", async (req, res) => {
   }
 });
 
+app.head("/health", (req, res) => {
+  res.sendStatus(200);
+});
+
 
 
 
